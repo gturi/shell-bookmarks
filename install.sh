@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# gets the absolute path to directory containing this script
 DIR=$(dirname $(readlink -f $0))
 
 SCRIPT=$DIR/bash-bookmarks.sh

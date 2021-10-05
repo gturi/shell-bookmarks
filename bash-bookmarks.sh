@@ -11,6 +11,7 @@ if [ -d "$BOOKMARK_DIR" ]; then
   function goto {
     # $1: bookmark name
     [ "$#" -ne "1" ] && echo 'Usage: goto $bookmarkName' && return 1
+    [ ! -L "$BOOKMARK_DIR/$1" ] && echo "Bookmark named $1 not found" && return 1
 
     cd -P "$BOOKMARK_DIR/$1"
   }
@@ -26,6 +27,8 @@ if [ -d "$BOOKMARK_DIR" ]; then
     # $1: directory that will be bookmarked
     # $2: bookmark name
     [ "$#" -ne "2" ] && echo 'Usage: bookmark $directory $bookmarkName' && return 1
+    [ ! -d "$1" ] && echo "$1 is not an absolute path to a directory" && return 1
+    [ -L "$BOOKMARK_DIR/$2" ] && echo "bookmark name $2 already in use" && return 1
 
     ln -s "$1" "$BOOKMARK_DIR/$2"
   }

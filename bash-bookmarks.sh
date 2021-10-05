@@ -12,7 +12,7 @@ if [ -d "$BOOKMARK_DIR" ]; then
     # $1: bookmark name
     [ "$#" -ne "1" ] && echo 'Usage: goto $bookmarkName' && return 1
 
-    cd -P $1
+    cd -P "$BOOKMARK_DIR/$1"
   }
   # goto completion function
   _goto() {

@@ -33,9 +33,17 @@ if [ -d "$BOOKMARK_DIR" ]; then
   }
 
   function unbookmark {
-    # $1: bookmark name
-    [ -z "$1" ] && echo 'Usage: unbookmark $bookmarkName' && return 1
-    rm "$BOOKMARK_DIR/$1"
+    # $@: space separated bookmark names 
+    [ "$#" -lt "1" ] && echo 'Usage: unbookmark $bookmarkName...' && return 1
+
+    for bookmarkName in "$@"
+    do
+      if [[ -L "$BOOKMARK_DIR/$bookmarkName" ]]; then
+        rm "$BOOKMARK_DIR/$bookmarkName"
+      else
+        echo "No bookmark named $bookmarkName has been found"
+      fi
+    done
   }
   # unbookmark completion function
   _unbookmark() {

@@ -16,15 +16,19 @@ Then use `goto` command to quickly `cd` to the bookmarked directory:
 goto @bookmark-name
 ```
 
-Finally you can use `unbookmark` command to remove a bookmark:
+Finally you can use `unbookmark` command to remove one or multiple bookmarks:
 
 ```
-unbookmark @bookmark-name
+unbookmark @bookmark-name @other-bookmark-name
 ```
-
-Tip: using `@` prefix (or another common prefix) before every bookmark allows you to easily find a bookmark thanks to bash autocompletion.
 
 If anything goes wrong, your bookmarks will be stored inside `$HOME/.bookmarks` directory (they are actually just symbolic links to your directories). And remember to file an issue!
+
+Tip: you can quickly bookmark the current working directory using `bookmark` in combination with `pwd` command:
+
+```bash
+bookmark `pwd` @bookmark-name
+```
 
 ## Install
 

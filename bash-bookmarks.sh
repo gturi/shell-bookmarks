@@ -8,7 +8,11 @@ BOOKMARK_DIR="$HOME/.bookmarks"
 if [ -d "$BOOKMARK_DIR" ]; then
   export CDPATH=".:$BOOKMARK_DIR:/"
   
-  alias goto="cd -P"
+  function goto {
+    # $1: bookmark name
+    [ -z "$1" ] && echo 'Usage: goto $bookmarkName' && return 1
+    cd -P $1
+  }
   # goto completion function
   _goto() {
     local IFS=$'\n'
@@ -20,11 +24,17 @@ if [ -d "$BOOKMARK_DIR" ]; then
   function bookmark {
     # $1: directory that will be bookmarked
     # $2: bookmark name
+    if [ -z "$1" ] || [ -z "$2" ]
+    then
+      echo 'Usage: bookmark $directory $bookmarkName'
+      return 1
+    fi
     ln -s "$1" "$BOOKMARK_DIR/$2"
   }
 
   function unbookmark {
     # $1: bookmark name
+    [ -z "$1" ] && echo 'Usage: unbookmark $bookmarkName' && return 1
     rm "$BOOKMARK_DIR/$1"
   }
   # unbookmark completion function

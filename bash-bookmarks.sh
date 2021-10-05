@@ -7,10 +7,11 @@ BOOKMARK_DIR="$HOME/.bookmarks"
 
 if [ -d "$BOOKMARK_DIR" ]; then
   export CDPATH=".:$BOOKMARK_DIR:/"
-  
+
   function goto {
     # $1: bookmark name
-    [ -z "$1" ] && echo 'Usage: goto $bookmarkName' && return 1
+    [ "$#" -ne "1" ] && echo 'Usage: goto $bookmarkName' && return 1
+
     cd -P $1
   }
   # goto completion function
@@ -24,11 +25,8 @@ if [ -d "$BOOKMARK_DIR" ]; then
   function bookmark {
     # $1: directory that will be bookmarked
     # $2: bookmark name
-    if [ -z "$1" ] || [ -z "$2" ]
-    then
-      echo 'Usage: bookmark $directory $bookmarkName'
-      return 1
-    fi
+    [ "$#" -ne "2" ] && echo 'Usage: bookmark $directory $bookmarkName' && return 1
+
     ln -s "$1" "$BOOKMARK_DIR/$2"
   }
 

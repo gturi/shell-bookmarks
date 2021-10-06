@@ -54,4 +54,20 @@ if [ -d "$BOOKMARK_DIR" ]; then
     COMPREPLY=( $( compgen -W "$BOOKMARK_LIST" -- ${cur}) )
   } && complete -F _unbookmark unbookmark
 
+  function rnbookmark {
+    # $1: bookmark name
+    # $2: new bookmark name
+    [ "$#" -lt "2" ] && echo 'Usage: rnbookmark $bookmarkName $newBookmarkName' && return 1
+    [ ! -L "$BOOKMARK_DIR/$1" ] && echo "Bookmark named $1 not found" && return 1
+    [ -L "$BOOKMARK_DIR/$2" ] && echo "bookmark name $2 already in use" && return 1
+
+    mv "$BOOKMARK_DIR/$1" "$BOOKMARK_DIR/$2"
+  }
+  # rnbookmark completion function
+  _rnbookmark() {
+    local IFS=$'\n'
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    local BOOKMARK_LIST="$(/bin/ls $BOOKMARK_DIR)"
+    COMPREPLY=( $( compgen -W "$BOOKMARK_LIST" -- ${cur}) )
+  } && complete -F _rnbookmark rnbookmark
 fi

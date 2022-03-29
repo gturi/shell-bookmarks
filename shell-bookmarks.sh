@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BOOKMARK_DIR="$HOME/.bookmarks"
+BOOKMARK_DIR="$HOME/.shell-bookmarks"
 
 # create bookmark directory if it does not exists
 [ -d "$BOOKMARK_DIR" ] || mkdir "$BOOKMARK_DIR"

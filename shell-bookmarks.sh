@@ -70,4 +70,20 @@ if [ -d "$BOOKMARK_DIR" ]; then
     local BOOKMARK_LIST="$(/bin/ls $BOOKMARK_DIR)"
     COMPREPLY=( $( compgen -W "$BOOKMARK_LIST" -- ${cur}) )
   } && complete -F _rnbookmark rnbookmark
+
+  function cleanbookmarks {
+    local BROKEN_BOOKMARK=false
+    for file in "$BOOKMARK_DIR"/*; 
+    do
+      if [ ! -e "$file" ] ; then # if the symlink is broken
+        echo "bookmark '$file' is broken and will be removed";
+        rm "$file"
+        BROKEN_BOOKMARK=true
+      fi
+    done
+
+    if [ "$BROKEN_BOOKMARK" = false ] ; then
+      echo 'No broken bookmarks have been found'
+    fi
+  }
 fi

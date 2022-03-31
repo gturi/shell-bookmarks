@@ -10,9 +10,11 @@ if [ -f "$SCRIPT" ]; then
     # # shell bookmarks
     # autoload bashcompinit && bashcompinit
     # emulate sh -c '. "$SCRIPT"'
-    printf '\n%s\n%s\n%s\n' \
+    printf '\n%s\n%s\n%s\n%s\n%s\n' \
         "# shell bookmarks" \
-        'autoload bashcompinit && bashcompinit' \
-        "emulate sh -c '. \"$SCRIPT\"'" \
+        "if [ -f \"$SCRIPT\" ]; then" \
+        '  autoload bashcompinit && bashcompinit' \
+        "  emulate sh -c '. \"$SCRIPT\"'" \
+        'fi' \
         >> "$HOME/.zshrc"
 fi

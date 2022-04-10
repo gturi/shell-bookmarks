@@ -13,14 +13,15 @@ if [ -d "$BOOKMARK_DIR" ]; then
     [ "$#" -ne "1" ] && echo 'Usage: goto $bookmarkName' && return 1
     [ ! -L "$BOOKMARK_DIR/$1" ] && echo "Bookmark named $1 not found" && return 1
 
-    cd -P "$BOOKMARK_DIR/$1"
+    cd -P "$BOOKMARK_DIR/$1" || exit
   }
   # goto completion function
   _goto() {
     local IFS=$'\n'
     local cur=${COMP_WORDS[COMP_CWORD]}
-    local BOOKMARK_LIST="$(/bin/ls $BOOKMARK_DIR)"
-    COMPREPLY=( $( compgen -W "$BOOKMARK_LIST" -- ${cur}) )
+    local BOOKMARK_LIST
+    BOOKMARK_LIST="$(/bin/ls "$BOOKMARK_DIR")"
+    COMPREPLY=( $( compgen -W "$BOOKMARK_LIST" -- "${cur}") )
   } && complete -F _goto goto
 
   function bookmark {
@@ -50,8 +51,9 @@ if [ -d "$BOOKMARK_DIR" ]; then
   _unbookmark() {
     local IFS=$'\n'
     local cur=${COMP_WORDS[COMP_CWORD]}
-    local BOOKMARK_LIST="$(/bin/ls $BOOKMARK_DIR)"
-    COMPREPLY=( $( compgen -W "$BOOKMARK_LIST" -- ${cur}) )
+    local BOOKMARK_LIST
+    BOOKMARK_LIST="$(/bin/ls "$BOOKMARK_DIR")"
+    COMPREPLY=( $( compgen -W "$BOOKMARK_LIST" -- "${cur}") )
   } && complete -F _unbookmark unbookmark
 
   function rnbookmark {
@@ -67,8 +69,9 @@ if [ -d "$BOOKMARK_DIR" ]; then
   _rnbookmark() {
     local IFS=$'\n'
     local cur=${COMP_WORDS[COMP_CWORD]}
-    local BOOKMARK_LIST="$(/bin/ls $BOOKMARK_DIR)"
-    COMPREPLY=( $( compgen -W "$BOOKMARK_LIST" -- ${cur}) )
+    local BOOKMARK_LIST
+    BOOKMARK_LIST="$(/bin/ls "$BOOKMARK_DIR")"
+    COMPREPLY=( $( compgen -W "$BOOKMARK_LIST" -- "${cur}") )
   } && complete -F _rnbookmark rnbookmark
 
 fi

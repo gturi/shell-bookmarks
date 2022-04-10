@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # gets the absolute path to directory containing this script
-DIR=$(dirname $(readlink -f $0))
+DIR=$(dirname "$(readlink -f "$0")")
 
-SCRIPT=$DIR/shell-bookmarks.sh
+SCRIPT="$DIR/shell-bookmarks.sh"
 
 if [ -f "$SCRIPT" ]; then
     # adds to .bashrc

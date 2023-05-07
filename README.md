@@ -13,10 +13,10 @@ bookmark /path/to/directory/to/bookmark @bookmark-name
 bookmark `pwd` @bookmark-name
 ```
 
-Then use `goto` command to quickly `cd` to the bookmarked directory:
+Then use `warp` command to quickly `cd` to the bookmarked directory:
 
 ```bash
-goto @bookmark-name
+warp @bookmark-name
 ```
 
 Finally you can use `unbookmark` command to remove one or multiple bookmarks:

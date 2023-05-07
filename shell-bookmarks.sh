@@ -8,21 +8,21 @@ BOOKMARK_DIR="$HOME/.shell-bookmarks"
 if [ -d "$BOOKMARK_DIR" ]; then
   export CDPATH=".:$BOOKMARK_DIR:/"
 
-  function goto {
+  function warp {
     # $1: bookmark name
-    [ "$#" -ne "1" ] && echo 'Usage: goto $bookmarkName' && return 1
+    [ "$#" -ne "1" ] && echo 'Usage: warp $bookmarkName' && return 1
     [ ! -L "$BOOKMARK_DIR/$1" ] && echo "Bookmark named $1 not found" && return 1
 
     cd -P "$BOOKMARK_DIR/$1" || exit
   }
-  # goto completion function
-  _goto() {
+  # warp completion function
+  _warp() {
     local IFS=$'\n'
     local cur=${COMP_WORDS[COMP_CWORD]}
     local BOOKMARK_LIST
     BOOKMARK_LIST="$(/bin/ls "$BOOKMARK_DIR")"
     COMPREPLY=( $( compgen -W "$BOOKMARK_LIST" -- "${cur}") )
-  } && complete -F _goto goto
+  } && complete -F _warp warp
 
   function bookmark {
     # $1: directory that will be bookmarked

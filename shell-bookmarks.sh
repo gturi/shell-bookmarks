@@ -13,7 +13,7 @@ if [ -d "$BOOKMARK_DIR" ]; then
     [ "$#" -ne "1" ] && echo 'Usage: warp $bookmarkName' && return 1
     [ ! -L "$BOOKMARK_DIR/$1" ] && echo "Bookmark named $1 not found" && return 1
 
-    cd -P "$BOOKMARK_DIR/$1" || exit
+    cd -P "$BOOKMARK_DIR/$1"
   }
   # warp completion function
   _warp() {

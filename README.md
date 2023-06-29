@@ -33,7 +33,9 @@ rnbookmark @bookmark-name @new-bookmark-name
 
 ## Install
 
-Run `installer-for-bash.sh` or `installer-for-zsh.sh` script. The changes will be loaded from the next terminal session you will open.
+Choose the installer according to your shell. The changes will be loaded from the next terminal session you will open.
+
+If you are using git bash, you need to first install [windows-shortcut-util](https://github.com/gturi/windows-shortcut-util)
 
 ## Update
 
@@ -63,7 +65,3 @@ emulate sh -c "/path/to/shell-bookmarks.sh"
 ## Troubleshooting
 
 If anything goes wrong, you can find your bookmarks inside `$HOME/.shell-bookmarks` directory (they are actually just symbolic links to your directories) and manually delete them. And remember to file an issue!
-
-## License
-
-[GPL-3.0](LICENSE)

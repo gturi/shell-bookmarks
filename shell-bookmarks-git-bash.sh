@@ -11,9 +11,13 @@ if [ -d "$BOOKMARK_DIR" ]; then
   function warp {
     # $1: bookmark name
     [ "$#" -ne "1" ] && echo 'Usage: warp $bookmarkName' && return 1
-    [ ! -f "$BOOKMARK_DIR/$1" ] && echo "Bookmark named $1 not found" && return 1
 
-    cd "$BOOKMARK_DIR/$1"
+    local BOOKMARK="$BOOKMARK_DIR/$1"
+    [ "${BOOKMARK:(-4)}" != ".lnk" ] && BOOKMARK="$BOOKMARK.lnk"
+
+    [ ! -f "$BOOKMARK" ] && echo "Bookmark named $BOOKMARK not found" && return 1
+
+    cd "$BOOKMARK"
   }
   # warp completion function
   _warp() {
